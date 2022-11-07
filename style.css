@@ -6,6 +6,11 @@ h1 {
     height: 172px;
     width: 108px;
     border: 2px solid black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
 #display {

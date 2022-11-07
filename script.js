@@ -17,17 +17,6 @@ console.table(myLibrary);
 
 bookDisplay();
 
-// for(i = 0; i < myLibrary.length; i++) {
-//     const bookTab = document.createElement("div");
-//     bookTab.classList.add("tab");
-//     bookTab.textContent = myLibrary[i].title;
-//     bookTab.addEventListener("click", function() {
-
-//     });
-//     display.appendChild(bookTab);
-
-// }
-
 newButton.addEventListener("click", function() {
     const entryForm = document.createElement("div");
     entryForm.classList.add("newInfo");
@@ -55,6 +44,16 @@ newButton.addEventListener("click", function() {
 
 });
 
+// Function list
+
+function Book(title, author, pages, readStatus) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.readStatus = readStatus
+
+}
+
 function bookDisplay() {
     while (display.firstChild) {
         display.removeChild(display.firstChild);
@@ -64,20 +63,20 @@ function bookDisplay() {
     for(i = 0; i < myLibrary.length; i++) {
         const bookTab = document.createElement("div");
         bookTab.classList.add("tab");
-        bookTab.textContent = myLibrary[i].title;
-        bookTab.addEventListener("click", function() {
-    
-        });
+        bookTab.innerHTML = `<div>${myLibrary[i].title}</div><button id="remove${i}">Remove</button>`;
+        bookTab.setAttribute("id", `${i}`);
         display.appendChild(bookTab);
+
+        let delBook = document.getElementById(`remove${i}`);
+        delBook.addEventListener("click", function() {
+            let indexValue = bookTab.getAttribute("id");
+            myLibrary.splice(indexValue, 1);
+            console.table(myLibrary);
+            bookDisplay();
+        });
     
     }
-}
 
-function Book(title, author, pages, readStatus) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.readStatus = readStatus
 }
 
 // function clearThis(x) {
