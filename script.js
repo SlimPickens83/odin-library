@@ -4,9 +4,9 @@ const newButton = document.getElementById("newBook");
 const form = document.getElementById("newForm");
 const formFields = "Title:<br><input type='text' id='title'><br>Author:<br><input type='text' id='author'><br>Pages:<br><input type='text' id='pages'><br>Read? (Y/N)<br><input type='text' id='readStatus'><br><br><button id=submit>Submit</button>"
 
-const neuromancer = new Book("Neuromancer", "William Gibson", "300", "read");
-const matilda = new Book("Matilda", "Roald Dahl", "200", "read");
-const perksWallflower = new Book("The Perks of Being a Wallflower", "Stephen Chbosky", "300", "read");
+const neuromancer = new Book("Neuromancer", "William Gibson", "300", "yes");
+const matilda = new Book("Matilda", "Roald Dahl", "200", "yes");
+const perksWallflower = new Book("The Perks of Being a Wallflower", "Stephen Chbosky", "300", "yes");
 
 let bookId = [];
 let index = 0;
@@ -30,15 +30,23 @@ newButton.addEventListener("click", function() {
         const pages = document.getElementById("pages").value;
         const readStatus = document.getElementById("readStatus").value;
 
-        bookId[index] = new Book(bookTitle, author, pages, readStatus);
-            console.table(bookId);
+        if (bookTitle === "" || author === "" || pages === "" ||readStatus === "") {
+            alert("Please enter a value for all input fields.");
 
-        myLibrary.push(bookId[index]);
-            console.table(myLibrary);
+        } else {
 
-        bookDisplay();
+            bookId[index] = new Book(bookTitle, author, pages, readStatus);
+
+            myLibrary.push(bookId[index]);
+                console.table(myLibrary);
+
+            bookDisplay();
         
-        index++;
+            index++;
+
+            entryForm.innerHTML = "";
+
+        }
 
     });
 
@@ -50,7 +58,7 @@ function Book(title, author, pages, readStatus) {
     this.title = title
     this.author = author
     this.pages = pages
-    this.readStatus = readStatus
+    this.readStatus = (readStatus === "yes" ? true : false);
 
 }
 
@@ -63,7 +71,15 @@ function bookDisplay() {
     for(i = 0; i < myLibrary.length; i++) {
         const bookTab = document.createElement("div");
         bookTab.classList.add("tab");
-        bookTab.innerHTML = `<div>${myLibrary[i].title}</div><button id="remove${i}">Remove</button>`;
+
+        let x;
+        if(myLibrary[i].readStatus === true) {
+            x = "Yes";
+        } else if (myLibrary[i].readStatus === false) {
+            x = "No";
+        }
+
+        bookTab.innerHTML = `<div>${myLibrary[i].title}<br>${myLibrary[i].author}<br>${myLibrary[i].pages} pages<br>Read? ${x}</div><div id="buttons"><button id="read${i}">Change read status</button><button id="remove${i}">Remove</button></div>`;
         bookTab.setAttribute("id", `${i}`);
         display.appendChild(bookTab);
 
@@ -74,11 +90,29 @@ function bookDisplay() {
             console.table(myLibrary);
             bookDisplay();
         });
-    
+
+        let isRead = document.getElementById(`read${i}`);
+        let y = myLibrary[i].readStatus;
+        let z = i;
+        let statusUpdate;
+
+        isRead.addEventListener("click", function() {
+            
+            if(y === true) {
+                statusUpdate = false;
+            } else if(y === false) {
+                statusUpdate = true;
+            }
+            
+            changeReadStatus(z, statusUpdate);
+            bookDisplay();
+
+        });
+
     }
 
 }
 
-// function clearThis(x) {
-//     x.splice(0, x.length);
-// }
+function changeReadStatus(index, newStatus) {
+    myLibrary[index].readStatus = newStatus;
+}

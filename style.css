@@ -3,8 +3,8 @@ h1 {
 }
 
 .tab {
-    height: 172px;
-    width: 108px;
+    height: 256px;
+    width: 192px;
     border: 2px solid black;
     text-align: center;
     display: flex;
@@ -16,5 +16,12 @@ h1 {
 #display {
     margin-top: 8px;
     display: flex;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
     gap: 4px;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
 }
