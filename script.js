@@ -79,7 +79,7 @@ function bookDisplay() {
             x = "No";
         }
 
-        bookTab.innerHTML = `<div>${myLibrary[i].title}<br>${myLibrary[i].author}<br>${myLibrary[i].pages} pages<br>Read? ${x}</div><div id="buttons"><button id="read${i}">Change read status</button><button id="remove${i}">Remove</button></div>`;
+        bookTab.innerHTML = `<div><span class="entryTitle">${myLibrary[i].title}</span><br><span class="entryBody">${myLibrary[i].author}<br>${myLibrary[i].pages} pages<br>Read? ${x}</span></div><div id="buttons"><button id="read${i}">Change read status</button><button id="remove${i}">Remove</button></div>`;
         bookTab.setAttribute("id", `${i}`);
         display.appendChild(bookTab);
 

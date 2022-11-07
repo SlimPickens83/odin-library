@@ -1,5 +1,17 @@
+body {
+    background-image: url("images/francesca-grima-ln_slYqaMiI-unsplash.jpg");
+    background-size: cover;
+}
+
 h1 {
     text-align: center;
+    color: rgb(70, 47, 6);
+    display: flex;
+    justify-content: center;
+}
+
+.pageTitle {
+    background-color: white;
 }
 
 .tab {
@@ -7,10 +19,20 @@ h1 {
     width: 192px;
     border: 2px solid black;
     text-align: center;
+    background-color: white;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+}
+
+.entryTitle {
+    font-size: 24px;
+}
+
+.entryBody {
+    color: darkslategray;
 }
 
 #display {
