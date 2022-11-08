@@ -2,11 +2,11 @@ const myLibrary = [];
 const display = document.getElementById("display");
 const newButton = document.getElementById("newBook");
 const form = document.getElementById("newForm");
-const formFields = "Title:<br><input type='text' id='title'><br>Author:<br><input type='text' id='author'><br>Pages:<br><input type='text' id='pages'><br>Read? (Y/N)<br><input type='text' id='readStatus'><br><br><button id=submit>Submit</button>"
+const formFields = "Title:<br><input type='text' id='title'><br>Author:<br><input type='text' id='author'><br>Pages:<br><input type='text' id='pages'><br><label for='genre'>Genre:</label><select name='genre' id='genre'><option value='kids'>Children's Lit</option><option value='lit'>Literature</option><option value='scifi'>Science Fiction</option><option value='romance'>Romance</option><option value='mystery'>Mystery</option><option value='fantasy'>Fantasy</option><option value='nonf'>Non-fiction</option></select><br>Read? (Y/N)<br><input type='text' id='readStatus'><br><br><button id=submit>Submit</button>"
 
-const neuromancer = new Book("Neuromancer", "William Gibson", "300", "yes");
-const matilda = new Book("Matilda", "Roald Dahl", "200", "yes");
-const perksWallflower = new Book("The Perks of Being a Wallflower", "Stephen Chbosky", "300", "yes");
+const neuromancer = new Book("Neuromancer", "William Gibson", "300", "scifi", "yes");
+const matilda = new Book("Matilda", "Roald Dahl", "200", "kids", "yes");
+const perksWallflower = new Book("The Perks of Being a Wallflower", "Stephen Chbosky", "300", "lit", "yes");
 
 let bookId = [];
 let index = 0;
@@ -29,13 +29,14 @@ newButton.addEventListener("click", function() {
         const author = document.getElementById("author").value;
         const pages = document.getElementById("pages").value;
         const readStatus = document.getElementById("readStatus").value;
+        const genre = document.getElementById("genre").value;
 
-        if (bookTitle === "" || author === "" || pages === "" ||readStatus === "") {
+        if (bookTitle === "" || author === "" || pages === "" || readStatus === "") {
             alert("Please enter a value for all input fields.");
 
         } else {
 
-            bookId[index] = new Book(bookTitle, author, pages, readStatus);
+            bookId[index] = new Book(bookTitle, author, pages, genre, readStatus);
 
             myLibrary.push(bookId[index]);
                 console.table(myLibrary);
@@ -54,10 +55,11 @@ newButton.addEventListener("click", function() {
 
 // Function list
 
-function Book(title, author, pages, readStatus) {
+function Book(title, author, pages, genre, readStatus) {
     this.title = title
     this.author = author
     this.pages = pages
+    this.genre = genre
     this.readStatus = (readStatus === "yes" ? true : false);
 
 }
@@ -79,8 +81,9 @@ function bookDisplay() {
             x = "No";
         }
 
-        bookTab.innerHTML = `<div><span class="entryTitle">${myLibrary[i].title}</span><br><span class="entryBody">${myLibrary[i].author}<br>${myLibrary[i].pages} pages<br>Read? ${x}</span></div><div id="buttons"><button id="read${i}">Change read status</button><button id="remove${i}">Remove</button></div>`;
+        bookTab.innerHTML = `<img/><div><span class="entryTitle">${myLibrary[i].title}</span><br><span class="entryBody">${myLibrary[i].author}<br>${myLibrary[i].pages} pages<br>Read? ${x}</span></div><div id="buttons"><button id="read${i}">Change read status</button><button id="remove${i}">Remove</button></div>`;
         bookTab.setAttribute("id", `${i}`);
+        genrePic(bookTab, myLibrary[i].genre);
         display.appendChild(bookTab);
 
         let delBook = document.getElementById(`remove${i}`);
@@ -115,4 +118,27 @@ function bookDisplay() {
 
 function changeReadStatus(index, newStatus) {
     myLibrary[index].readStatus = newStatus;
+}
+
+function genrePic(tab, genre) {
+    const img = document.createElement("img");
+
+	if (genre === "kids") {
+		img.src = 'images/kids_icon.png';
+	} else if (genre === "scifi") {
+		img.src = 'images/scifi_icon.png';
+	} else if (genre === "lit") {
+		img.src = 'images/literature_icon.png';
+	} else if (genre === "nonf") {
+		img.src = 'images/nonfiction_icon.png';
+	} else if (genre === "mystery") {
+		img.src = 'images/mystery_icon.png';
+	} else if (genre === "romance") {
+		img.src = 'images/romance_icon.png';
+	} else if (genre === "fantasy") {
+        img.src = 'images/fantasy_icon.png';
+    }
+
+    tab.appendChild(img);
+
 }

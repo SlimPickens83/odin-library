@@ -35,8 +35,15 @@ h1 {
     color: darkslategray;
 }
 
+#newForm {
+    color: brown;
+    background-color: blanchedalmond;
+    width: 186px;
+}
+
 #display {
     margin-top: 8px;
+    margin-bottom: 4px;
     display: flex;
     flex-wrap: wrap;
     flex: 0 0 auto;
